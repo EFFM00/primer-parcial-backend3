@@ -17,15 +17,13 @@ func GetArray() ([][]string, error) {
 		return nil, err
 	}
 
-	arrStrAux := strings.Split(string(file), ";")
+	arrStrAux := strings.Split(string(file), "\n")
 
 	var arrStr [][]string
 
 	for _, v := range arrStrAux {
 
 		line := strings.Split(v, ",")
-
-		fmt.Printf("%s\n\n", line)
 
 		arrStr = append(arrStr, line)
 
@@ -41,12 +39,11 @@ func GetTotalTickets(destination string, datos [][]string) int {
 
 	count := 0
 
-	for i, ticket := range datos {
+	for _, ticket := range datos {
 
-		fmt.Println(i)
-		fmt.Println(ticket)
+		fmt.Println(ticket[2])
 
-		// if v[3] == destination {
+		// if ticket[3] == destination {
 		// 	count += 1
 		// }
 
