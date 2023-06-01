@@ -1,6 +1,7 @@
 package tickets
 
 import (
+	"fmt"
 	"os"
 	"strings"
 )
@@ -16,15 +17,15 @@ func GetArray() ([][]string, error) {
 		return nil, err
 	}
 
-	str := string(file)
-
-	arrStrAux := strings.Split(str, ";")
+	arrStrAux := strings.Split(string(file), ";")
 
 	var arrStr [][]string
 
 	for _, v := range arrStrAux {
 
 		line := strings.Split(v, ",")
+
+		fmt.Printf("%s\n\n", line)
 
 		arrStr = append(arrStr, line)
 
@@ -34,11 +35,25 @@ func GetArray() ([][]string, error) {
 }
 
 // ejemplo 1
-// func GetTotalTickets(destination string) (string, error) {
+func GetTotalTickets(destination string, datos [][]string) int {
 
-// Una función que calcule cuántas personas viajan a un país determinado.
+	// Una función que calcule cuántas personas viajan a un país determinado.
 
-// }
+	count := 0
+
+	for i, ticket := range datos {
+
+		fmt.Println(i)
+		fmt.Println(ticket)
+
+		// if v[3] == destination {
+		// 	count += 1
+		// }
+
+	}
+
+	return count
+}
 
 // // ejemplo 2
 // func GetMornings(time string) (int, error) {}

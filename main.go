@@ -8,8 +8,9 @@ import (
 
 func main() {
 
-	total, _ := tickets.GetArray()
+	datos, _ := tickets.GetArray()
+	// total := tickets.GetTotalTickets("China", datos)
 
-	fmt.Println(total)
+	fmt.Println(datos)
 
 }
