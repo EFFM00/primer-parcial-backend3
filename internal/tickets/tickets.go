@@ -3,13 +3,20 @@ package tickets
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
 type Ticket struct {
+	id          string
+	name        string
+	email       string
+	destination string
+	timeFlight  string
+	price       float64
 }
 
-func GetArray() ([][]string, error) {
+func GetArray() ([]Ticket, error) {
 
 	file, err := os.ReadFile("./tickets.csv")
 
@@ -19,13 +26,38 @@ func GetArray() ([][]string, error) {
 
 	arrStrAux := strings.Split(string(file), "\n")
 
-	var arrStr [][]string
+	var arrStr []Ticket
 
 	for _, v := range arrStrAux {
 
 		line := strings.Split(v, ",")
 
-		arrStr = append(arrStr, line)
+		id := line[0]
+
+		name := line[1]
+
+		email := line[2]
+
+		destination := line[3]
+
+		timeFlight := line[4]
+
+		price, err := strconv.ParseFloat(line[5], 64)
+		if err != nil {
+			fmt.Println("error parsing the price")
+			continue
+		}
+
+		newTicket := Ticket{
+			id:          id,
+			name:        name,
+			email:       email,
+			destination: destination,
+			price:       price,
+			timeFlight:  timeFlight,
+		}
+
+		arrStr = append(arrStr, newTicket)
 
 	}
 
@@ -33,7 +65,7 @@ func GetArray() ([][]string, error) {
 }
 
 // ejemplo 1
-func GetTotalTickets(destination string, datos [][]string) int {
+func GetTotalTickets(destination string, datos []Ticket) int {
 
 	// Una función que calcule cuántas personas viajan a un país determinado.
 
@@ -41,11 +73,11 @@ func GetTotalTickets(destination string, datos [][]string) int {
 
 	for _, ticket := range datos {
 
-		fmt.Println(ticket[2])
+		fmt.Println(ticket)
 
-		// if ticket[3] == destination {
-		// 	count += 1
-		// }
+		if ticket.destination == destination {
+			count += 1
+		}
 
 	}
 

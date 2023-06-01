@@ -9,7 +9,7 @@ import (
 func main() {
 
 	datos, _ := tickets.GetArray()
-	total := tickets.GetTotalTickets("China", datos)
+	total := tickets.GetTotalTickets("Poland", datos)
 
 	fmt.Println(total)
 
