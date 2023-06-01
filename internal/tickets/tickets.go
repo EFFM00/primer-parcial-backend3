@@ -64,7 +64,6 @@ func GetArray() ([]Ticket, error) {
 	return arrStr, nil
 }
 
-// ejemplo 1
 func GetTotalTickets(destination string, datos []Ticket) int {
 
 	// Una función que calcule cuántas personas viajan a un país determinado.
@@ -72,8 +71,6 @@ func GetTotalTickets(destination string, datos []Ticket) int {
 	count := 0
 
 	for _, ticket := range datos {
-
-		fmt.Println(ticket)
 
 		if ticket.destination == destination {
 			count += 1
@@ -88,4 +85,11 @@ func GetTotalTickets(destination string, datos []Ticket) int {
 // func GetMornings(time string) (int, error) {}
 
 // // ejemplo 3
-// func AverageDestination(destination string, total int) (int, error) {}
+func AverageDestination(destination string, datos []Ticket) float64 {
+
+	total := float64(len(datos))
+	passengersToDestin := float64(GetTotalTickets(destination, datos))
+
+	return (passengersToDestin * 100) / total
+
+}

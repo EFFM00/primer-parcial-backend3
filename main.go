@@ -9,8 +9,14 @@ import (
 func main() {
 
 	datos, _ := tickets.GetArray()
-	total := tickets.GetTotalTickets("Poland", datos)
+	// total := tickets.GetTotalTickets("Brazil", datos)
 
-	fmt.Println(total)
+	percPassengersByDestin := tickets.AverageDestination("Brazil", datos)
+	tickets.AverageDestination("Brazil", datos)
+
+	// fmt.Println(total)
+	fmt.Println(len(datos))
+
+	fmt.Printf("%v perc", percPassengersByDestin)
 
 }
