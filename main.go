@@ -2,15 +2,126 @@ package main
 
 import (
 	"fmt"
-
+	"github.com/google/uuid" //Esta biblioteca permite generar identificadores únicos para objetos
 	"github.com/EFFM00/primer-parcial-backend3/internal/tickets"
 )
 
+var Airline tickets.Airline
+
 func main() {
 
-	datos, _ := tickets.GetArray()
-	total := tickets.GetTotalTickets("Poland", datos)
+	ticketsList, err := tickets.OpenCSV("./tickets.csv")
+	if err != nil {
+		fmt.Println(err)
+	}
 
-	fmt.Println(total)
+	Airline = tickets.Airline{
+		ID:      uuid.New().String(),
+		Name:    "Aerolineas Argentinas",
+		Tickets: ticketsList,
+	}
+
+	//--------------------------------------------------------------
+	//Requisito 1
+
+	channelTotalCountry := make(chan int)
+
+	go func() {
+		for {
+			totalCountry, err := Airline.GetTotalTickets("Brazil")
+
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			channelTotalCountry <- totalCountry
+
+		}
+	}()
+
+	fmt.Println("--------------------------------------------------------------")
+
+	totalCountryResult := <-channelTotalCountry
+	fmt.Println("Total de tickets para Brasil: ", totalCountryResult)
+
+	//--------------------------------------------------------------
+	// Requisito 2
+
+	channelTicketsDawn := make(chan int)
+	channelTicketsMorning := make(chan int)
+	channelTicketsAfternoon := make(chan int)
+	channelTicketsNight := make(chan int)
+
+	go func() {
+		for {
+			ticketsDawn, err := Airline.GetCountByPeriod("0")
+
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			channelTicketsDawn <- ticketsDawn
+
+		}
+	}()
+
+	ticketsDawnResult := <-channelTicketsDawn
+
+	go func() {
+		for {
+			ticketsMorning, err := Airline.GetCountByPeriod("Morning")
+
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			channelTicketsMorning <- ticketsMorning
+		}
+	}()
+
+	ticketsMorningResult := <-channelTicketsMorning
+
+	go func() {
+		for {
+			ticketsAfternoon, err := Airline.GetCountByPeriod("14:00")
+
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			channelTicketsAfternoon <- ticketsAfternoon
+		}
+	}()
+
+	ticketsAfternoonResult := <-channelTicketsAfternoon
+
+	go func() {
+		for {
+			ticketsNight, err := Airline.GetCountByPeriod("3")
+
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			channelTicketsNight <- ticketsNight
+
+		}
+	}()
+
+	ticketsNightResult := <-channelTicketsNight
+
+	fmt.Println("--------------------------------------------------------------")
+	fmt.Println("Personas que viajan en la madrugada:", ticketsDawnResult)
+	fmt.Println("Personas que viajan en la mañana:", ticketsMorningResult)
+	fmt.Println("Personas que viajan en la tarde:", ticketsAfternoonResult)
+	fmt.Println("Personas que viajan en la noche:", ticketsNightResult)
+	//--------------------------------------------------------------
+
+	totalTickets := ticketsDawnResult + ticketsMorningResult + ticketsAfternoonResult + ticketsNightResult
+
+	fmt.Println("--------------------------------------------------------------")
+	fmt.Println("Total de tickets en un día:", totalTickets)
+
 
 }
+
