@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/google/uuid" //Esta biblioteca permite generar identificadores únicos para objetos
 	"github.com/EFFM00/primer-parcial-backend3/internal/tickets"
 )
@@ -10,6 +9,7 @@ import (
 var Airline tickets.Airline
 
 func main() {
+
 	ticketsList, err := tickets.OpenCSV("./tickets.csv")
 	if err != nil {
 		fmt.Println(err)
@@ -124,3 +124,4 @@ func main() {
 
 
 }
+

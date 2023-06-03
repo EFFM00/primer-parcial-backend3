@@ -1,6 +1,7 @@
 package tickets
 
 import (
+
 	"encoding/csv"
 	"errors"
 	"fmt"
@@ -10,6 +11,7 @@ import (
 	"strconv"
 	"strings"
 )
+
 
 // estrutura que recibirá los datos del csv
 type Ticket struct {
@@ -208,3 +210,4 @@ func OpenCSV(path string) ([]Ticket, error) {
 
 	return ticketsList, nil
 }
+
