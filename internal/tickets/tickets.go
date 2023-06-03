@@ -1,7 +1,6 @@
 package tickets
 
 import (
-
 	"encoding/csv"
 	"errors"
 	"fmt"
@@ -11,7 +10,6 @@ import (
 	"strconv"
 	"strings"
 )
-
 
 // estrutura que recibirá los datos del csv
 type Ticket struct {
@@ -163,6 +161,25 @@ func (a Airline) GetCountByPeriod(time string) (int, error) {
 
 	return count, nil
 
+}
+
+// ---------------------------------------------------------------
+// Requisito 03:
+//
+
+func (a Airline) AverageDestination(destination string) (float64, error) {
+
+	totalPassengers := len(a.Tickets)
+
+	passengersToDestin, err := a.GetTotalTickets(destination)
+
+	if err != nil {
+		return 0.0, err
+	}
+
+	percentage := (float64(passengersToDestin) / float64(totalPassengers)) * 100
+
+	return float64(percentage), nil
 }
 
 // --------------------

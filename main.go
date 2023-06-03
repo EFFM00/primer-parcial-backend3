@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/google/uuid" //Esta biblioteca permite generar identificadores únicos para objetos
+
 	"github.com/EFFM00/primer-parcial-backend3/internal/tickets"
+	"github.com/google/uuid" //Esta biblioteca permite generar identificadores únicos para objetos
 )
 
 var Airline tickets.Airline
 
 func main() {
-
 	ticketsList, err := tickets.OpenCSV("./tickets.csv")
 	if err != nil {
 		fmt.Println(err)
@@ -122,5 +122,30 @@ func main() {
 	fmt.Println("--------------------------------------------------------------")
 	fmt.Println("Total de tickets en un día:", totalTickets)
 
-}
+	//--------------------------------------------------------------
+	// Requisito 3
 
+	channelPercentagePassengers := make(chan float64)
+
+	go func() {
+		for {
+			percentagePassengers, err := Airline.AverageDestination("Brazil")
+
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			channelPercentagePassengers <- percentagePassengers
+		}
+	}()
+
+	percentagePassengersResult := <-channelPercentagePassengers
+
+	fmt.Println("--------------------------------------------------------------")
+	fmt.Printf("Porcentaje de pasajeros hacia Brasil: %0.2f \n", percentagePassengersResult)
+	fmt.Println("--------------------------------------------------------------")
+
+	//--------------------------------------------------------------
+	// Requisito 4
+	// Implementado a lo largo del proyecto con la utilización de goroutines y canales
+}
