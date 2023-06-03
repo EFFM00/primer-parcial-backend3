@@ -36,9 +36,7 @@ func (a Airline) AverageDestination(destination string) (float64, error) {}
 
 1. Abre una terminal o consola.
 
-2. Utiliza el siguiente comando para navegar al directorio donde se encuentra el archivo del programa Go:
-
-Reemplaza "/ruta/al/directorio" con la ruta real del directorio donde se encuentra el archivo.
+2. Utiliza el siguiente comando para navegar al directorio donde se encuentra el archivo del programa Go. Reemplaza "/ruta/al/directorio" con la ruta real del directorio donde se encuentra el archivo:
 
 ```bash
 cd /ruta/al/directorio
