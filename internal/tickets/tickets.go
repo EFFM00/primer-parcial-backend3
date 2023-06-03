@@ -196,6 +196,7 @@ func OpenCSV(path string) ([]Ticket, error) {
 
 		if err != nil {
 			return nil, err
+
 		}
 
 		ticketsList = append(ticketsList, Ticket{
@@ -210,4 +211,3 @@ func OpenCSV(path string) ([]Ticket, error) {
 
 	return ticketsList, nil
 }
-

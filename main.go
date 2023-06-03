@@ -122,6 +122,5 @@ func main() {
 	fmt.Println("--------------------------------------------------------------")
 	fmt.Println("Total de tickets en un día:", totalTickets)
 
-
 }
 
