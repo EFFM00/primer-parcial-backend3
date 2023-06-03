@@ -61,4 +61,4 @@ Go compilará y ejecutará automáticamente el programa, mostrando la salida en 
 
 Salida en consola
 
-![demo](https://imgur.com/a/EGa1GhB.png)
+https://imgur.com/a/EGa1GhB.png
